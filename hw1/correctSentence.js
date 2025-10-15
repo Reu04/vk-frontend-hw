@@ -18,6 +18,15 @@ correctSentence("Greetings, friends.") == "Greetings, friends."
  */
 
 export default function correctSentence(text) {
-  // your solution goes here
-  return text;
+  if (!text || typeof text !== 'string') {
+    return; // возвращает undefined
+  }
+
+  let corrected = text.trim();
+  corrected = corrected[0].toUpperCase() + corrected.slice(1);
+
+  if (!corrected.endsWith('.')) {
+    corrected += '.';
+  }
+  return corrected;
 }

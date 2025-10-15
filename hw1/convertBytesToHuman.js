@@ -17,6 +17,30 @@
  * функция должна вернуть false.
  */
 
+const dataUnitsMap = new Map([
+  [2**10, 'KB'],
+  [2**20, 'MB'],
+  [2**30, 'GB'],
+  [2**40, 'TB'],
+  [2**50, 'PB'],
+  [2**60, 'EB'],
+  [2**70, 'ZB'],
+  [2**80, 'YB'],
+]);
+
 export default function convertBytesToHuman(bytes) {
-  // your solution goes here
+  if ((typeof bytes !== 'number' && 
+      typeof bytes !== 'bigint') || 
+      bytes < 0) {
+    return false;
+  }
+
+  const reverseMap = [...dataUnitsMap.entries()].reverse();
+  for (const [value, name] of reverseMap) {
+    if (bytes >= value) {
+      const formattedRes = parseFloat((+bytes / value).toFixed(2))
+      return `${formattedRes} ${name}`;
+    }
+  }
+  return `${bytes} B`
 }
